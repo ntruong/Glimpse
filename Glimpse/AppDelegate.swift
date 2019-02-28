@@ -33,6 +33,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) { }
 
+    func application(_ sender: NSApplication, openFiles filenames: [String]) {
+        for (_, file) in filenames.enumerated() {
+            self.openFile(file: URL(fileURLWithPath: file))
+        }
+    }
+
+    func application(_sender: NSApplication, openFile file: String) -> Bool {
+        self.openFile(file: URL(fileURLWithPath: file))
+        return true
+    }
+
     @objc
     func promptForFiles() {
         let openPanel = NSOpenPanel()
