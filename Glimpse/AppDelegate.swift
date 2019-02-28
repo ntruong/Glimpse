@@ -2,7 +2,6 @@
 //  AppDelegate.swift
 //  Glimpse
 //
-//  Created by N Truong on 2/28/19.
 //  Copyright © 2019 ntruong. All rights reserved.
 //
 
