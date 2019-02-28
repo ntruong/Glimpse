@@ -38,8 +38,8 @@ class Document : NSObject {
         self.observer = Observer(file: url)
         self.observer?.start { self.load() }
         self.load()
-        self.window.makeKey()
-        self.windowController.showWindow(self)
+        self.window.center()
+        self.window.makeKeyAndOrderFront(self)
     }
 
 
