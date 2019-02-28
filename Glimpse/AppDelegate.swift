@@ -8,7 +8,6 @@
 import Cocoa
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-
     var documents: Set<Document>?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -31,6 +30,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         documents = []
     }
+
+    func applicationWillTerminate(_ aNotification: Notification) { }
 
     @objc
     func promptForFiles() {
@@ -60,9 +61,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let document = Document(delegate: self, file: url)
         self.documents?.insert(document)
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-
 }
