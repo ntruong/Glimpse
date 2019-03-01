@@ -53,5 +53,8 @@ class Document : NSObject {
         }
     }
 
-    func close() { self.observer?.stop() }
+    func close() {
+        self.observer?.stop()
+        self.windowController.window?.close()
+    }
 }

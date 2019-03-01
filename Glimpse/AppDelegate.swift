@@ -63,9 +63,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func closeWindow() {
         guard let window = NSApp.keyWindow as? Window else { return }
         guard let document = window.document else { return window.close() }
-        self.documents?.remove(document)
         document.close()
-        window.close()
+        self.documents?.remove(document)
     }
 
     func openFile(file url: URL) {
