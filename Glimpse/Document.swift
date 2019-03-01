@@ -9,15 +9,12 @@ import Cocoa
 import Quartz
 
 class Document : NSObject {
-    private let delegate: AppDelegate
     private let url: URL
     private let pdfView: PDFView
     private let windowController: NSWindowController
     private var observer: Observer?
 
-    init(delegate: AppDelegate, file url: URL) {
-        self.delegate = delegate
-
+    init(file url: URL) {
         self.url = url
 
         self.pdfView = PDFView()
@@ -42,7 +39,6 @@ class Document : NSObject {
         window.makeKeyAndOrderFront(self)
     }
 
-
     func load() {
         DispatchQueue.main.async {
             guard let pdf = PDFDocument(url: self.url) else { return }
@@ -57,8 +53,5 @@ class Document : NSObject {
         }
     }
 
-    func close() {
-        self.observer?.stop()
-        self.delegate.documents?.remove(self)
-    }
+    func close() { self.observer?.stop() }
 }
