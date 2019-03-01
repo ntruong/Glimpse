@@ -9,10 +9,9 @@ import Cocoa
 import Quartz
 
 class Document : NSObject {
-    let delegate: AppDelegate
+    private let delegate: AppDelegate
     private let url: URL
     private let pdfView: PDFView
-    private let window: Window
     private let windowController: NSWindowController
     private var observer: Observer?
 
@@ -26,20 +25,21 @@ class Document : NSObject {
         self.pdfView.displaysPageBreaks = false
         self.pdfView.backgroundColor = .clear
 
-        self.window = Window()
-        self.window.contentView = self.pdfView
+        let window = Window()
 
-        self.windowController = NSWindowController(window: self.window)
+        self.windowController = NSWindowController(window: window)
 
         super.init()
-        self.window.document = self
+
+        window.document = self
+        window.contentView = self.pdfView
 
         guard let _ = PDFDocument(url: self.url) else { return }
         self.observer = Observer(file: url)
         self.observer?.start { self.load() }
         self.load()
-        self.window.center()
-        self.window.makeKeyAndOrderFront(self)
+        window.center()
+        window.makeKeyAndOrderFront(self)
     }
 
 
@@ -57,5 +57,8 @@ class Document : NSObject {
         }
     }
 
-    func close() { self.observer?.stop() }
+    func close() {
+        self.observer?.stop()
+        self.delegate.documents?.remove(self)
+    }
 }
