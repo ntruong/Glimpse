@@ -31,9 +31,9 @@ class Document : NSObject {
         window.document = self
         window.contentView = self.pdfView
 
+        self.observer = Observer(file: url, handler: self.load)
+        self.observer?.start()
         guard let _ = PDFDocument(url: self.url) else { return }
-        self.observer = Observer(file: url)
-        self.observer?.start { self.load() }
         self.load()
         window.center()
         window.makeKeyAndOrderFront(self)
