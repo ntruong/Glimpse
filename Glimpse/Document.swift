@@ -19,8 +19,7 @@ class Document : NSObject {
 
         self.pdfView = PDFView()
         self.pdfView.autoScales = true
-        self.pdfView.displaysPageBreaks = false
-        self.pdfView.backgroundColor = .clear
+        self.pdfView.backgroundColor = .windowBackgroundColor
 
         let window = Window()
 
