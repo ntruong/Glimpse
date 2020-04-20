@@ -20,6 +20,12 @@ class Document : NSObject {
         self.pdfView = PDFView()
         self.pdfView.autoScales = true
         self.pdfView.backgroundColor = .windowBackgroundColor
+        self.pdfView.pageBreakMargins = NSEdgeInsets(
+            top: 1,
+            left: 1,
+            bottom: 1,
+            right: 1
+        )
 
         let window = Window()
 
