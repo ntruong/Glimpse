@@ -26,6 +26,7 @@ class Document : NSObject {
             bottom: 1,
             right: 1
         )
+        self.pdfView.autoresizingMask = [.width, .height]
 
         let window = Window()
 
@@ -34,7 +35,10 @@ class Document : NSObject {
         super.init()
 
         window.document = self
-        window.contentView = self.pdfView
+
+        guard let frame = window.contentView?.frame else { return }
+        self.pdfView.frame = frame
+        window.contentView?.addSubview(self.pdfView)
 
         self.observer = Observer(file: url, handler: self.load)
         self.observer?.start()
