@@ -26,6 +26,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menuFileItem.submenu = menuFile
         menu.addItem(menuFileItem)
 
+        let menuEdit = NSMenu(title: "Edit")
+        menuEdit.addItem(withTitle: "Copy", action: #selector(copyText),
+            keyEquivalent: "c")
+        let menuEditItem = NSMenuItem()
+        menuEditItem.submenu = menuEdit
+        menu.addItem(menuEditItem)
+
         NSApp.mainMenu = menu
 
         documents = []
@@ -65,6 +72,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             document.close()
             window.close()
             self.documents?.remove(document)
+        }
+    }
+
+    @objc
+    func copyText() {
+        if let (_, document) = loadDocument() {
+            guard let selection = document.currentSelection() else { return }
+            if let text = selection.string {
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setString(text, forType: .string)
+            }
         }
     }
 
