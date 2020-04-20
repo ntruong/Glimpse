@@ -61,10 +61,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc
     func closeWindow() {
-        guard let window = NSApp.keyWindow as? Window else { return }
-        guard let document = window.document else { return window.close() }
-        document.close()
-        self.documents?.remove(document)
+        if let (window, document) = loadDocument() {
+            document.close()
+            window.close()
+            self.documents?.remove(document)
+        }
+    }
+
+    func loadDocument() -> (Window, Document)? {
+        guard let window = NSApp.keyWindow as? Window else { return nil }
+        guard let document = window.document else {
+            window.close()
+            return nil
+        }
+        return (window, document)
     }
 
     func openFile(file url: URL) {
