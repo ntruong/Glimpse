@@ -64,7 +64,5 @@ class Document : NSObject {
 
     func close() { self.observer?.stop() }
 
-    func currentSelection() -> PDFSelection? {
-        return self.pdfView.currentSelection
-    }
+    func copyText() { self.pdfView.copy(self) }
 }
